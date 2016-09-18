@@ -3,7 +3,7 @@
 #
 # BUILD    : DF/[SERVICE][JENKINS][PHP]
 # OS/CORE  : debian:8
-# SERVICES : jenkins 2.7.3
+# SERVICES : jenkins 2.7.4
 #
 # VERSION 0.9.6
 #

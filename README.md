@@ -1,8 +1,8 @@
-# Jenkins 2.7.3 PHP/CI
+# Jenkins 2.7.4 PHP/CI
 ## provide dynamic slaves in a Kubernetes/Docker environment
 
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg)](LICENSE)
-[![System Version](https://img.shields.io/badge/version-0.9.5-blue.svg)](VERSION)
+[![System Version](https://img.shields.io/badge/version-0.9.6-blue.svg)](VERSION)
 
 # Configuration on Google Container Engine
 
