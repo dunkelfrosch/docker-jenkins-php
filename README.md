@@ -11,7 +11,7 @@ authenticate your terminal against gloud service(s)
     gcloud auth login
 ```
 
-Create a jenkins cluster 
+Create a jenkins cluster  
 ```
     gcloud container clusters create jenkins --num-nodes 1 --machine-type g1-small
 ```
