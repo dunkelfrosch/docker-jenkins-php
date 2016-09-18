@@ -1,6 +1,7 @@
 #
 # http://kubernetes.io/docs/user-guide/deployments/
 # http://kubernetes.io/docs/user-guide/replication-controller/
+# http://kubernetes.io/docs/user-guide/production-pods/
 #
 ---
   apiVersion: extensions/v1beta1
@@ -16,10 +17,12 @@
           app: jenkins
           tier: frontend
 
-      spec: 
+      spec:
+        restartPolicy: Always
         containers: 
           - name: jenkins
             image: dunkelfrosch/docker-jenkins-php
+            imagePullPolicy: IfNotPresent
 
             securityContext:
               privileged: true
