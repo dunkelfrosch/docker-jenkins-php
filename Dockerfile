@@ -40,7 +40,7 @@ ADD https://raw.githubusercontent.com/dunkelfrosch/docker-bash/master/docker_cle
 
 # x-layer 1: package manager related processor
 RUN apt-get update -qq >/dev/null 2>&1 \
-    && apt-get install -qq -y --no-install-recommends libfcgi0ldbl mc wget curl ntp sudo >/dev/null 2>&1
+    && apt-get install -qq -y --no-install-recommends mc wget curl ntp sudo >/dev/null 2>&1
 
 # x-layer 2: update jenkins sudo bound
 RUN echo "jenkins ALL=NOPASSWD: ALL" > /etc/sudoers
