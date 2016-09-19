@@ -10,6 +10,7 @@
     labels:
       app: jenkins
       tier: frontend
+      track: stable
 
   spec:
     type: LoadBalancer
