@@ -19,7 +19,9 @@
           track: stable
 
       spec:
-        restartPolicy: Always
+        restartPolicy: Never
+        dnsPolicy: ClusterFirst
+
         containers: 
           - name: jenkins
             image: dunkelfrosch/docker-jenkins-php
