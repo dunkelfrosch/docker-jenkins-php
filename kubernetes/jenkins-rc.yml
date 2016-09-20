@@ -19,7 +19,6 @@
           track: stable
 
       spec:
-        restartPolicy: Never
         dnsPolicy: ClusterFirst
 
         containers: 
@@ -28,7 +27,7 @@
             imagePullPolicy: IfNotPresent
 
             securityContext:
-              privileged: true
+              privileged: false
 
             ports:
               - containerPort: 8080
