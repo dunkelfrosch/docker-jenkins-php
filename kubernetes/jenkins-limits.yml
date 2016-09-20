@@ -1,0 +1,32 @@
+#
+# http://kubernetes.io/docs/admin/limitrange/
+# https://github.com/kubernetes/kubernetes.github.io/blob/master/docs/admin/limitrange/limits.yaml
+#
+# ! not used yet !
+#
+---
+  apiVersion: v1
+  kind: LimitRange
+  metadata:
+    name: jenkins
+
+  spec:
+    limits:
+    - max:
+        cpu: 500m
+        memory: 2Gi
+
+      min:
+        cpu: 300m
+        memory: 1Gi
+
+      type: Pod
+
+    # limits:
+    #  - default:
+    #      cpu: 200m
+    #      memory: 512Mi
+    #    defaultRequest:
+    #      cpu: 100m
+    #      memory: 256Mi
+    #    type: Container

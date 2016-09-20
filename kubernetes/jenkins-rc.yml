@@ -7,7 +7,7 @@
   apiVersion: extensions/v1beta1
   kind: Deployment
   metadata:
-    name: jenkins-deployment
+    name: jenkins
 
   spec:
     replicas: 1
@@ -15,6 +15,7 @@
       metadata:
         labels:
           app: jenkins
+          version: 2.7.4.096
           tier: frontend
           track: stable
 
@@ -26,8 +27,16 @@
             image: dunkelfrosch/docker-jenkins-php
             imagePullPolicy: IfNotPresent
 
+            #resources:
+            #  limits:
+            #    cpu: 2
+            #    memory: 2Gi
+            #  requests:
+            #    cpu: 1
+            #    memory: 1Gi
+
             securityContext:
-              privileged: false
+              privileged: true
 
             ports:
               - containerPort: 8080
