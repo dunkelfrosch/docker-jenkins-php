@@ -7,7 +7,8 @@ set -e
 echo -e "\n"
 echo -e "-- ⚑ -- | → KUBERNETES :: start main cluster (1 node)"
 echo -e "        | ⇢ $(uname -nm)"
-echo -e "        | ⇢ $(gcloud container clusters resize jenkins --size 1)"
-echo -e "        | ⇢ [ done ]\n"
+echo -e "\n"
 
+gcloud container clusters resize jenkins --size 3 --no-async \ &&
+kubectl get nodes \ &&
 ./kube-up.sh
