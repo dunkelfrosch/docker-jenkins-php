@@ -1,8 +1,3 @@
-#
-# http://kubernetes.io/docs/user-guide/deployments/
-# http://kubernetes.io/docs/user-guide/replication-controller/
-# http://kubernetes.io/docs/user-guide/production-pods/
-#
 ---
   apiVersion: extensions/v1beta1
   kind: Deployment
@@ -26,14 +21,6 @@
           - name: jenkins
             image: dunkelfrosch/docker-jenkins-php
             imagePullPolicy: IfNotPresent
-
-            #resources:
-            #  limits:
-            #    cpu: 2
-            #    memory: 2Gi
-            #  requests:
-            #    cpu: 1
-            #    memory: 1Gi
 
             securityContext:
               privileged: true
