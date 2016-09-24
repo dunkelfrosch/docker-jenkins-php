@@ -1,0 +1,71 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: jenkins-mysql
+  labels:
+    app: jenkins-mysql
+    version: 2.7.4.096
+    tier: backend
+    track: stable
+
+spec:
+  selector:
+    app: jenkins-mysql
+
+  ports:
+    - port: 3306
+
+  clusterIP: None
+
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: jenkins-mysql
+
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: jenkins-mysql
+        version: 2.7.4.096
+        tier: backend
+        track: stable
+
+  strategy:
+    type: Recreate
+
+  template:
+    metadata:
+      labels:
+        app: jenkins-mysql
+        tier: mysql
+
+    spec:
+      dnsPolicy: ClusterFirst
+      containers:
+      - image: mysql:5.6
+        imagePullPolicy: IfNotPresent
+        securityContext:
+          privileged: false
+
+        name: mysql
+        env:
+          - name: MYSQL_ROOT_PASSWORD
+            value: start100
+
+        ports:
+          - containerPort: 3306
+            name: mysql
+
+        volumeMounts:
+          - name: mysql-persistent-storage
+            mountPath: /var/lib/mysql
+
+      volumes:
+        - name: mysql-persistent-storage
+          gcePersistentDisk:
+            pdName: kubernetes-jenkins-mysql
+            fsType: ext4
