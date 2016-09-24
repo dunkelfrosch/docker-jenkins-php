@@ -1,47 +1,75 @@
 ---
-  apiVersion: extensions/v1beta1
-  kind: Deployment
-  metadata:
-    name: jenkins
+apiVersion: v1
+kind: Service
+metadata:
+  name: jenkins
+  labels:
+    app: jenkins
+    version: 2.7.4.096
+    tier: frontend
+    track: stable
 
-  spec:
-    replicas: 1
-    template:
-      metadata:
-        labels:
-          app: jenkins
-          version: 2.7.4.096
-          tier: frontend
-          track: stable
+spec:
+  type: LoadBalancer
+  selector:
+    app: jenkins
 
-      spec:
-        dnsPolicy: ClusterFirst
+  ports:
+    -
+      name: http
+      port: 80
+      targetPort: 8080
+      protocol: TCP
 
-        containers: 
-          - name: jenkins
-            image: dunkelfrosch/docker-jenkins-php
-            imagePullPolicy: IfNotPresent
+    -
+      name: slave
+      port: 50000
+      protocol: TCP
 
-            securityContext:
-              privileged: true
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: jenkins
 
-            ports:
-              - containerPort: 8080
-              - containerPort: 50000
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: jenkins
+        version: 2.7.4.096
+        tier: frontend
+        track: stable
 
-            volumeMounts:
-              - name: jenkins-data
-                mountPath: /var/jenkins_home
+    spec:
+      dnsPolicy: ClusterFirst
 
-            livenessProbe:
-              initialDelaySeconds: 60
-              timeoutSeconds: 5
-              httpGet:
-                path: /login
-                port: 8080
+      containers:
+        - name: jenkins
+          image: dunkelfrosch/docker-jenkins-php
+          imagePullPolicy: IfNotPresent
 
-        volumes:
-          - name: jenkins-data
-            gcePersistentDisk:
-              pdName: kubernetes-jenkins
-              fsType: ext4
+          securityContext:
+            privileged: true
+
+          ports:
+            - containerPort: 8080
+            - containerPort: 50000
+
+          volumeMounts:
+            - name: jenkins-data
+              mountPath: /var/jenkins_home
+
+          livenessProbe:
+            initialDelaySeconds: 60
+            timeoutSeconds: 5
+            httpGet:
+              path: /login
+              port: 8080
+
+      volumes:
+        - name: jenkins-data
+          gcePersistentDisk:
+            pdName: kubernetes-jenkins
+            fsType: ext4
